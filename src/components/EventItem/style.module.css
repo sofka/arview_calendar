@@ -1,0 +1,20 @@
+li {
+    
+    padding: 10px;
+    width: 400px;
+    display: block;
+}
+
+.header{
+ color: rgb(46, 163, 247);
+ text-decoration: underline;
+}
+.button {
+    display: none;
+}
+
+.button.display {
+    display: inline-flex;
+    float: right;
+    margin: 5px;
+}
