@@ -14,11 +14,25 @@ import defaultEvents from './defaultEvents';
 
 
 const App = () => {
+  //функция фильтрации событий по датам. Пока у меня массив
+  const filterEvents = (newDate) => {
+    const localStorageEvents = localStorage.getItem('events')
+
+    if (!localStorageEvents) {
+      localStorage.setItem('events', JSON.stringify(defaultEvents))
+    }
+    const events = JSON.parse(localStorageEvents);
+    return events.filter(el => el.date === (newDate ?? date));
+  }
   const dispatch = useDispatch();
   const [isOpenModal, setOpenModal] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const [date, setCurrentDate] = useState(moment(new Date()).format('DD-MM-YYYY'));
+  const filterEventForDate = filterEvents();
+  const [eventForDate, setEventForDate] = useState(filterEventForDate);
+
   useEffect(() => {
-    function checkUserData() {
+    function checkEvents() {
       const localStorageEvents = localStorage.getItem('events')
 
       if (!localStorageEvents) {
@@ -27,21 +41,23 @@ const App = () => {
       setEventForDate(filterEvents());
     }
 
-    window.addEventListener('storage', checkUserData)
+
+    window.addEventListener('storage', checkEvents)
 
     return () => {
-      window.removeEventListener('storage', checkUserData)
+      window.removeEventListener('storage', checkEvents)
     }
   }, [])
 
 
-
   const handleClickAdd = () => {
+    setIsEdit(false);
     setOpenModal(prevState => !prevState);
     dispatch(clear());
   }
 
   const handleClickEdit = () => {
+    setIsEdit(true);
     setOpenModal(true);
   }
 
@@ -58,11 +74,7 @@ const App = () => {
     return [...new Set(events.map(el => el.date))];
   }
 
-  //функция фильтрации событий по датам. Пока у меня массив
-  const filterEvents = (newDate) => {
-    const events = JSON.parse(localStorage.getItem('events'));
-    return events.filter(el => el.date === (newDate ?? date));
-  }
+
 
   const saveEvent = (event) => {
     let events = JSON.parse(localStorage.getItem('events'));
@@ -79,9 +91,7 @@ const App = () => {
     setEventForDate(filterEvents());
   }
 
-  const filterEventForDate = filterEvents();
   const markDates = getMarkDates();
-  const [eventForDate, setEventForDate] = useState(filterEventForDate);
 
 
   return (
@@ -92,7 +102,7 @@ const App = () => {
 
       <Modal
         isOpen={isOpenModal}
-        title="Добавить событие"
+        title={!isEdit ? "Добавить событие" : "Редактировать событие"}
         onCloseModal={handleClickAdd}
       >
         <EventForm onCloseModal={handleClickAdd} saveEvent={saveEvent} />
