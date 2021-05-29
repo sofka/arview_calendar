@@ -27,6 +27,7 @@
     background: #fafafa;
     opacity: 0;
     transition: all 0.5s ease-in-out;
+    border-radius: .5em;
 }
 
 .root.open .modal {
@@ -49,6 +50,10 @@
     position: absolute;
     right: 12px;
     top: 10%;
+}
+
+.btnClose:hover {
+    color: rgb(243, 170, 170);
 }
 
 .content {

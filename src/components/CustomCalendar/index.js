@@ -11,7 +11,7 @@ const CustomCalendar = ({ markDates, handleChangeDate }) => {
         handleChangeDate(date);
     }
     return (
-        <Calendar
+        <Calendar className={s.custom_calendar}
             onChange={onHandleChangeDate}
             value={value}
             tileClassName={({ date, view }) => {

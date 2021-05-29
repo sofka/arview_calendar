@@ -1,3 +1,7 @@
 .highlight {
     background-color: rgb(243, 170, 170);
  }
+
+ .custom_calendar{
+    border-radius: .5em;
+ }

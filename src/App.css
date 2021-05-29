@@ -1,15 +1,21 @@
 .wrapper {
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 50% 50%;
   margin: 30px;
 }
 
 .button-add {
   margin-top: 10px;
   width: 350px;
+  max-width: 100%;
   padding: 10px;
   background-color: white;
-  border: solid black 1px;
+  border: 1px solid #a0a096;
   border-radius: .5em;
   margin-left: 0px;
+}
+
+.left_column {
+  margin-left: auto;
+  margin-right: auto;
 }

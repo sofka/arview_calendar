@@ -11,8 +11,6 @@ import { useDispatch } from 'react-redux';
 import { clear } from './store/event';
 import defaultEvents from './defaultEvents';
 
-
-
 const App = () => {
   //функция фильтрации событий по датам. Пока у меня массив
   const filterEvents = (newDate) => {
@@ -75,12 +73,11 @@ const App = () => {
   }
 
 
-
+  // сохранение заметки. Тут и создание новой и обновление
   const saveEvent = (event) => {
     let events = JSON.parse(localStorage.getItem('events'));
     const guid = event.guid ?? uuidv4();
     event = { ...event, date: date, guid: guid }
-    console.log(guid);
     const findIndex = events.findIndex((el) => el.guid === guid);
     if (findIndex !== -1) {
       events[findIndex] = event;
@@ -96,9 +93,11 @@ const App = () => {
 
   return (
     <div className="wrapper">
-      <CustomCalendar markDates={markDates} handleChangeDate={handleChangeDate} />
+      <div className="left_column">
+        <CustomCalendar markDates={markDates} handleChangeDate={handleChangeDate} />
+        <button className='button-add' type='button' onClick={handleClickAdd}>Добавить</button>
+      </div>
       <EventList events={eventForDate} handleClickEdit={handleClickEdit} />
-      <button className='button-add' type='button' onClick={handleClickAdd}>Добавить</button>
 
       <Modal
         isOpen={isOpenModal}
