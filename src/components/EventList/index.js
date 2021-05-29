@@ -2,7 +2,7 @@ import EventItem from '../EventItem';
 import eventTypes from '../../eventTypes';
 import s from './style.module.css';
 
-const EventList = ({ events, handleClickEdit }) => {
+const EventList = ({ events, handleClickEdit, handleClickRemove }) => {
 
     return (
         <ul className={s.list}>
@@ -16,6 +16,7 @@ const EventList = ({ events, handleClickEdit }) => {
                                 name={item.name}
                                 money={item.money}
                                 onEventEdit={handleClickEdit}
+                                onEventRemove={handleClickRemove}
                                 type={item.type}
                             />
 
@@ -29,6 +30,7 @@ const EventList = ({ events, handleClickEdit }) => {
                                 address={item.address}
                                 time={item.time}
                                 onEventEdit={handleClickEdit}
+                                onEventRemove={handleClickRemove}
                                 type={item.type} />
                         }
                         case eventTypes.remark:
@@ -39,6 +41,7 @@ const EventList = ({ events, handleClickEdit }) => {
                                 name={item.name}
                                 remark={item.remark}
                                 onEventEdit={handleClickEdit}
+                                onEventRemove={handleClickRemove}
                                 type={item.type} />
 
                         }

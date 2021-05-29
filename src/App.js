@@ -59,6 +59,22 @@ const App = () => {
     setOpenModal(true);
   }
 
+
+  //удалить событие
+  const handleClickRemove = (guid) => {
+    const localStorageEvents = localStorage.getItem('events')
+    const events = JSON.parse(localStorageEvents);
+    const findIndex = events.findIndex((el) => el.guid === guid);
+    if (findIndex !== -1) {
+      const before = events.slice(0, findIndex);
+      const after = events.slice(findIndex + 1);
+      const newEvents = [...before, ...after];
+      localStorage.setItem('events', JSON.stringify(newEvents));
+      setEventForDate(filterEvents());
+    }
+
+  }
+
   const handleChangeDate = (date) => {
     date = moment(date).format('DD-MM-YYYY');
     setCurrentDate(date);
@@ -97,7 +113,7 @@ const App = () => {
         <CustomCalendar markDates={markDates} handleChangeDate={handleChangeDate} />
         <button className='button-add' type='button' onClick={handleClickAdd}>Добавить</button>
       </div>
-      <EventList events={eventForDate} handleClickEdit={handleClickEdit} />
+      <EventList events={eventForDate} handleClickEdit={handleClickEdit} handleClickRemove={handleClickRemove} />
 
       <Modal
         isOpen={isOpenModal}

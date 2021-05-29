@@ -18,3 +18,7 @@ li {
     float: right;
     margin: 5px;
 }
+
+.button:hover {
+    color: rgb(243, 170, 170);
+}
