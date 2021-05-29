@@ -16,32 +16,34 @@ const EventForm = ({ onCloseModal, saveEvent }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         saveEvent({ guid, name, money, address, time, remark, type });
         onCloseModal && onCloseModal(true);
     }
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <div>Название события</div>
+                <label htmlFor="name" className={s.required}>Название события</label>
                 <input
                     placeholder="Введите название события"
                     value={name}
                     onChange={(e) => {
                         dispatch(setName(e.target.value));
                     }}
+                    name="name"
                     required
                 />
             </div>
             <div>
-                <div>Тип события</div>
-                <select onChange={(e) => dispatch(setType(e.target.value))} value={type}>
+                <label htmlFor="type">Тип события</label>
+                <select name="type" onChange={(e) => dispatch(setType(e.target.value))} value={type}>
                     <option value={eventTypes.holiday}  >Праздничные дни</option>
                     <option value={eventTypes.event} >Мероприятия</option>
                     <option value={eventTypes.remark} >Пометки</option>
                 </select>
             </div>
             <div className={cn(s.hidden_block, { [s.visible]: type === eventTypes.holiday })}>
-                <div>Сумма денег</div>
+                <label htmlFor="money" className={s.required}>Сумма денег</label>
                 <input
                     placeholder="Введите сумму, которую планируете потратить"
                     required={type === eventTypes.holiday}
@@ -53,7 +55,7 @@ const EventForm = ({ onCloseModal, saveEvent }) => {
                 />
             </div>
             <div className={cn(s.hidden_block, { [s.visible]: type === eventTypes.event })}>
-                <div>Куда идти</div>
+                <label htmlFor="address" className={s.required}>Куда идти</label>
                 <input placeholder="Введите адрес"
                     required={type === eventTypes.event}
                     name="address"
@@ -62,11 +64,12 @@ const EventForm = ({ onCloseModal, saveEvent }) => {
                         dispatch(setAddress(e.target.value));
                     }}
                 />
-                <div>Во сколько</div>
+                <label htmlFor="time" className={s.required}>Во сколько</label>
                 <input
                     placeholder="Введите время"
                     required={type === eventTypes.event}
                     name="time"
+                    type="time"
                     value={time}
                     onChange={(e) => {
                         dispatch(setTime(e.target.value));

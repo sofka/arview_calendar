@@ -39,3 +39,8 @@ button {
     display: flex;
     flex-direction: row-reverse;
 }
+
+.required:after {
+    content:" *";
+    color: rgb(228, 16, 16);
+  }
